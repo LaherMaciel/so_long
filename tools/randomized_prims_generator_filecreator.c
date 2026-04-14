@@ -144,11 +144,15 @@ void saveMazeToFile(int maze[HEIGHT][WIDTH], Point start, Point exit) {
     char filename[20];
     int fileIndex = 1;
 
-    // Create a unique filename (maze1.ber, maze2.ber, ...)
+    // Create a unique filename (../maps/maze1.ber, ../maps/maze2.ber, ...)
+    FILE *check;
     do {
-        snprintf(filename, sizeof(filename), "maze%d.ber", fileIndex);
+        snprintf(filename, sizeof(filename), "../maps/maze%d.ber", fileIndex);
         fileIndex++;
-    } while (fopen(filename, "r") != NULL); // Check if file exists
+        check = fopen(filename, "r");
+        if (check)
+            fclose(check);
+    } while (check); // Check if file exists
 
     FILE *file = fopen(filename, "w");
     if (!file) {

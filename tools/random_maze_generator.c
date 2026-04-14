@@ -9,7 +9,7 @@
 #define COLLECTABLE 'C'
 #define START 'P'
 #define EXIT 'E'
-#define FILE_NAME "maze.ber"
+#define FILE_NAME "../maps/maze.ber"
 
 // Structure to represent the maze
 typedef struct {
@@ -159,7 +159,13 @@ void saveMazeToFile(const Maze* maze) {
 
     for (int i = 0; i < maze->rows; i++) {
         for (int j = 0; j < maze->cols; j++) {
-            fputc(maze->grid[i][j] == WALL ? '1' : '0', file);
+            char c = maze->grid[i][j];
+            if (c == WALL)
+                fputc('1', file);
+            else if (c == START || c == EXIT || c == COLLECTABLE)
+                fputc(c, file);
+            else
+                fputc('0', file);
         }
         fputc('\n', file);
     }

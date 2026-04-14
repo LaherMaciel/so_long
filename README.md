@@ -63,11 +63,12 @@ so_long/
 │   ├── events/          # Keyboard input and movement
 │   ├── interface/       # Window, image rendering, pixel ops
 │   └── map/             # Map reading and validation
+├── maps/                # .ber map files
 ├── images/              # Game textures (XPM/PNG)
 ├── libft/               # Custom C library
 ├── minilibx-linux/      # MiniLibX (Linux)
 ├── minilibx_opengl/     # MiniLibX (macOS)
-├── tools/               # Custom maze generator scripts
+├── tools/               # Maze generator and pathfinding tools
 └── Makefile
 ```
 
@@ -83,17 +84,36 @@ so_long/
 | `make run` | Quick run with a sample map |
 | `make val` | Run with valgrind |
 
-## Maze generator tools
+## Tools
 
-The `tools/` folder contains standalone C programs used to procedurally generate `.ber` map files:
+The `tools/` folder contains standalone C programs. Compile and run any of them independently from inside the `tools/` directory — generated maps are saved to `../maps/`.
 
-- `depth-first-search_maze_algorithm_filecreator.c` — DFS maze generation
-- `randomized_prims_generator_filecreator.c` — Prim's algorithm
-- `random_maze_generator.c` — Random maze
-- `origin_shift_algorithm.c` — Origin-shift maze
-- `playerHunt_algorithm.c` — Player hunt algorithm
+### Maze generators
 
-Compile and run any of them independently to generate new maps.
+| File | Algorithm | Output |
+|------|-----------|--------|
+| `depth-first-search_maze_algorithm_filecreator.c` | Iterative DFS | `maps/maze1.ber`, `maze2.ber`, ... |
+| `depth-first-search_maze_algorithm_filecreator2.c` | Recursive DFS + flood-fill validation | `maps/dfs_maze_0.ber`, ... |
+| `randomized_prims_generator_filecreator.c` | Randomized Prim's | `maps/maze1.ber`, `maze2.ber`, ... |
+| `random_maze_generator.c` | DFS or Prim's (random pick at runtime) | `maps/maze.ber` |
+
+All generators produce perfect mazes (exactly one path between any two cells) at 29×15 with a random start and exit at the bottom-right corner.
+
+### Pathfinding and future enemy AI
+
+| File | Purpose |
+|------|---------|
+| `playerHunt_algorithm.c` | A* pathfinding: reads a map with an enemy (`i`) and player (`P`), prints the shortest path in red. Foundation for a future enemy that hunts the player. |
+| `origin_shift_algorithm.c` | Terminal visualizer for an existing `.ber` file (ANSI colors). Placeholder for a future live map-mutation system. |
+
+### Planned extensions (not yet implemented)
+
+The original vision for this project included two extended gameplay features:
+
+- **Live map mutation** (`origin_shift_algorithm.c`): while the game runs, the map periodically opens new paths and closes existing ones — maintaining full playability via flood-fill — so the layout itself feels alive.
+- **Enemy AI** (`playerHunt_algorithm.c`): enemies that randomly walk the map but can switch at any moment to actively hunt the player using A*. The player never knows which mode an enemy is in.
+
+Generated maps were also intended to be deleted on game exit rather than accumulated on disk.
 
 ## Author
 

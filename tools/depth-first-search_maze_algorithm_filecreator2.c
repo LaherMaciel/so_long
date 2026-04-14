@@ -131,7 +131,7 @@ void saveMazeToFile(int maze[HEIGHT][WIDTH], Point start, Point exit) {
 
     // Find a unique filename
     do {
-        sprintf(filename, "dfs_maze_%d.ber", count++);
+        sprintf(filename, "../maps/dfs_maze_%d.ber", count++);
         file = fopen(filename, "r");
         if (file) fclose(file);
     } while (file);
