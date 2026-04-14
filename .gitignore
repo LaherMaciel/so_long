@@ -1,0 +1,21 @@
+# Build artifacts
+*.o
+*.a
+objects/
+so_long
+
+# Compiled tools
+tools/maze
+tools/maze_generator
+tools/random_maze_generator
+tools/randomized_prims_generator_filecreator
+
+# Norminette
+.norminette.log
+
+# Editor
+.vscode/
+.editorconfig
+
+# macOS
+.DS_Store
