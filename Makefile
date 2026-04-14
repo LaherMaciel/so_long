@@ -131,36 +131,37 @@ re: fclean
 	clear && make -s
 
 run: $(NAME)
-	./so_long progressive3.ber
+	./so_long maps/progressive3.ber
 
 42_run: $(NAME)
-	./so_long cluster1.ber cluster2.ber 42_logo.ber
+	./so_long maps/cluster1.ber maps/cluster2.ber maps/42_logo.ber
 
 progressive_run: $(NAME)
-	./so_long progressive.ber progressive2.ber progressive5.ber progressive4.ber progressive3.ber \
-		progressive6.ber 42_logo.ber
+	./so_long maps/progressive.ber maps/progressive2.ber maps/progressive5.ber \
+		maps/progressive4.ber maps/progressive3.ber maps/progressive6.ber maps/42_logo.ber
 
 multi_full_valgrind: re
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes -s ./so_long \
-		progressive.ber progressive2.ber progressive5.ber progressive4.ber progressive3.ber \
-		progressive6.ber 42_logo.ber
+		maps/progressive.ber maps/progressive2.ber maps/progressive5.ber \
+		maps/progressive4.ber maps/progressive3.ber maps/progressive6.ber maps/42_logo.ber
 
-map3:./so_long mapa3.ber
+map3: $(NAME)
+	./so_long maps/mapa3.ber
 
 dbug: $(NAME)
-	gdb -tui -args ./so_long mapa.ber mapa4.ber
+	gdb -tui -args ./so_long maps/mapa.ber
 
-val:$(NAME)
-	valgrind ./so_long progressive3.ber
+val: $(NAME)
+	valgrind ./so_long maps/progressive3.ber
 
-val2:$(NAME)
-	valgrind ./so_long mapa.ber mapa4.ber
+val2: $(NAME)
+	valgrind ./so_long maps/mapa.ber
 
-val_full:$(NAME)
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes -s ./so_long mapa3.ber
+val_full: $(NAME)
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes -s ./so_long maps/mapa3.ber
 
-val_full2:$(NAME)
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes -s ./so_long mapa.ber
+val_full2: $(NAME)
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes -s ./so_long maps/mapa.ber
 
 
 ver: re norm

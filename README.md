@@ -27,7 +27,7 @@ This implementation includes:
 
 ```bash
 make
-./so_long maps/map.ber
+./so_long maps/mapa.ber
 ```
 
 ### Map format (`.ber`)
