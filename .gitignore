@@ -19,3 +19,12 @@ tools/randomized_prims_generator_filecreator
 
 # macOS
 .DS_Store
+
+# Subject and evaluation files
+*.pdf
+*.tgz
+en.subject*
+*eval_sheet*
+*eval*
+*.zip
+
